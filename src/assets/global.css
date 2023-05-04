@@ -1,0 +1,12 @@
+body {
+  margin: 0px !important;
+}
+
+.link {
+  color: blue;
+  cursor: pointer;
+}
+
+.link:hover {
+  color: black;
+}
