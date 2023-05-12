@@ -1,9 +1,8 @@
 <template>
   <div v-if="isAppReady">
     <NavBar @logout="logout()" :signed-in-user="signedInUser" />
-    <DashboardView v-if="isAuthenticated" :signed-in-user="signedInUser" />
-    <div v-if="!isAuthenticated" class="register-login-container col-12 md:col-6 lg:col-6 xl:col-4">
-      <RegisterLogin @check-is-authed="checkIsAuthed()" class="register-login" />
+    <div class="app-container">
+      <router-view @check-is-authed="checkIsAuthed()" :signed-in-user="signedInUser"></router-view>
     </div>
   </div>
 </template>
@@ -12,19 +11,14 @@
 import { apolloClient } from './main';
 import { gql } from '@apollo/client/core';
 import NavBar from './components/NavBar.vue';
-import DashboardView from './components/DashboardView.vue';
-import RegisterLogin from './components/RegisterLogin.vue';
 
 export default {
   name: 'App',
   components: {
-    NavBar,
-    DashboardView,
-    RegisterLogin
+    NavBar
   },
   data() {
     return {
-      isAuthenticated: false,
       isAppReady: false,
       signedInUser: null
     }
@@ -36,25 +30,39 @@ export default {
           query User {
             user {
               id,
+              firstName,
+              lastName,
               email,
-              paymentStatus
+              phone,
+              # address1,
+              # address2,
+              # city,
+              # state,
+              # zip,
+              companyName,
+              paymentStatus,
+              settings {
+                profileImgUrl
+              }
             }
           }
         `;
 
-        const response = await apolloClient.query({ query: fetchUser });
+        const response = await apolloClient.query({
+          fetchPolicy: 'no-cache',
+          query: fetchUser 
+        });
         const user = response.data.user;
-        this.isAuthenticated = true;
         this.signedInUser = user;
       } catch(err) {
+        this.signedInUser = null;
         console.log(err);
-        this.isAuthenticated = false;
       }
     },
     logout() {
       sessionStorage.removeItem('salesscript.token');
-      this.isAuthenticated = false;
       this.signedInUser = null;
+      this.$router.push({ name: "WelcomeView" });
     }
   },
   async created() {
@@ -65,10 +73,8 @@ export default {
 </script>
 
 <style>
-.register-login-container {
-  max-width: 500px;
-  padding-top: 20px;
-  margin-left: auto;
-  margin-right: auto;
+.app-container {
+  margin-left: 50px;
+  margin-right: 50px;
 }
 </style>

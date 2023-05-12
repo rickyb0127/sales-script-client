@@ -55,7 +55,7 @@
               <InputText id="retypePassword" type="password" v-model="formData.retypePassword" aria-describedby="retypePassword-help" />
             </div>
             <small v-if="inputError === 'passwordMatch'" class="p-error">Passwords don't match</small>
-            <div class="flex flex-column gap-2">
+            <!-- <div class="flex flex-column gap-2">
               <label for="address1">Address Line 1</label>
               <InputText id="address1" type="text" v-model="formData.address1" aria-describedby="address1-help" />
             </div>
@@ -68,9 +68,9 @@
               <label for="city">City</label>
               <InputText id="city" type="text" v-model="formData.city" aria-describedby="city-help" />
             </div>
-            <small v-if="inputError === 'city'" class="p-error">Please enter a valid city</small>
+            <small v-if="inputError === 'city'" class="p-error">Please enter a valid city</small> -->
             <!-- TODO create state picker dropdown for state enums -->
-            <div class="flex flex-column gap-2">
+            <!-- <div class="flex flex-column gap-2">
               <label for="state">State</label>
               <InputText id="state" type="text" v-model="formData.state" aria-describedby="state-help" />
             </div>
@@ -79,7 +79,7 @@
               <label for="zip">Zip Code</label>
               <InputText id="zip" type="text" v-model="formData.zip" aria-describedby="zip-help" />
             </div>
-            <small v-if="inputError === 'zip'" class="p-error">Please enter a valid zip</small>
+            <small v-if="inputError === 'zip'" class="p-error">Please enter a valid zip</small> -->
             <div class="flex flex-column gap-2">
               <label for="companyname">Company Name</label>
               <InputText id="companyname" type="text" v-model="formData.companyName" aria-describedby="companyname-help" />
@@ -229,11 +229,11 @@ export default {
                 email: this.formData.email,
                 password: this.formData.password,
                 phone: this.formData.phone,
-                address1: this.formData.address1,
-                address2: this.formData.address2,
-                city: this.formData.city,
-                state: this.formData.state,
-                zip: this.formData.zip,
+                // address1: this.formData.address1,
+                // address2: this.formData.address2,
+                // city: this.formData.city,
+                // state: this.formData.state,
+                // zip: this.formData.zip,
                 companyName: this.formData.companyName
               }
             } 

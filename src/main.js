@@ -12,7 +12,7 @@ import "primevue/resources/primevue.min.css";
 import "primeicons/primeicons.css";
 
 const httpLink = new HttpLink({
-  uri: process.env.VUE_APP_API_URL,
+  uri: process.env.VUE_APP_API_URL
 });
 
 const middlewareLink = new ApolloLink((operation, forward) => {
@@ -34,11 +34,49 @@ export const apolloClient = new ApolloClient({
   cache: new InMemoryCache()
 });
 
+import WelcomeView from './components/WelcomeView.vue';
+import ProfilePage from './components/ProfilePage.vue';
+import SettingsPage from './components/SettingsPage.vue';
+import AnalyticsTracker from './components/AnalyticsTracker.vue';
+import ScriptPractice from './components/ScriptPractice.vue';
+import ScriptCategory from './components/ScriptCategory.vue';
+import ScriptQuiz from './components/ScriptQuiz.vue';
+
 const routes = [
   {
     path: '/',
-    name: 'App',
-    component: App
+    name: 'WelcomeView',
+    component: WelcomeView
+  },
+  {
+    path: '/profile',
+    name: 'ProfilePage',
+    component: ProfilePage
+  },
+  {
+    path: '/settings',
+    name: 'SettingsPage',
+    component: SettingsPage
+  },
+  {
+    path: '/analytics',
+    name: 'AnalyticsTracker',
+    component: AnalyticsTracker
+  },
+  {
+    path: '/script-practice',
+    name: 'ScriptPractice',
+    component: ScriptPractice
+  },
+  {
+    path: '/script-category/:category',
+    name: 'ScriptCategory',
+    component: ScriptCategory
+  },
+  {
+    path: '/script/:category/:type',
+    name: 'ScriptQuiz',
+    component: ScriptQuiz
   }
 ];
 

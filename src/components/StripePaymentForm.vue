@@ -73,6 +73,7 @@ export default {
       }
     },
     async checkStatus() {
+      // TODO this needs to make trigger a call to checkAuth in case the webhook updated the user payment status
       const stripe = Stripe(process.env.VUE_APP_STRIPE_PUBLISHABLE_KEY);
       const clientSecret = new URLSearchParams(window.location.search).get(
         "payment_intent_client_secret"

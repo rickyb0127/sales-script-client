@@ -4,13 +4,31 @@
     <Dialog class="stripe-dialog" :visible="!isPaymentSuccessful" modal header="Header" :style="{ width: '50vw' }">
       <StripePaymentForm @update-payment-success="updatePaymentSuccess" />
     </Dialog>
-    {{ signedInUser }}
+    <div v-if="isPaymentSuccessful" class="grid">
+      <div class="col-4">
+        <Card class="clickable" @click="goToMenuItem('ScriptPractice')">
+          <template #title>Script Practice</template>
+          <template #content>
+            <img class="card-body-img" src="https://images.pexels.com/photos/5673488/pexels-photo-5673488.jpeg" />
+          </template>
+        </Card>
+      </div>
+      <div class="col-4">
+        <Card class="clickable" @click="goToMenuItem('AnalyticsTracker')">
+          <template #title>Analytics/Goal Tracker</template>
+          <template #content>
+            <img class="card-body-img" src="https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" />
+          </template>
+        </Card>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import StripePaymentForm from './StripePaymentForm.vue';
 import Dialog from 'primevue/dialog';
+import Card from 'primevue/card';
 
 export default {
   name: "DashboardView",
@@ -24,11 +42,17 @@ export default {
   },
   components: {
     Dialog,
-    StripePaymentForm
+    StripePaymentForm,
+    Card
   },
   methods: {
     updatePaymentSuccess(val) {
       this.isPaymentSuccessful = val;
+    },
+    goToMenuItem(menuItem) {
+      this.$router.push({
+        name: menuItem
+      });
     }
   },
   created() {

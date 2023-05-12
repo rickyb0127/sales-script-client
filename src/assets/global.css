@@ -10,3 +10,11 @@ body {
 .link:hover {
   color: black;
 }
+
+.clickable {
+  cursor: pointer;
+}
+
+.card-body-img {
+  width: 100%;
+}

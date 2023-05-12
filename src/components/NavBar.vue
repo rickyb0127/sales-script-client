@@ -2,11 +2,12 @@
   <div>
     <Menubar>
       <template #start>
-        <img alt="logo" src="https://primefaces.org/cdn/primevue/images/logo.svg" height="40" class="mr-2" />
+        <img class="clickable mr-2" @click="$router.push({ path: '/' })" alt="logo" src="https://primefaces.org/cdn/primevue/images/logo.svg" height="40" />
       </template>
       <template #end>
         <button v-if="signedInUser" @click="toggleShowMenuItems" class="avatar-container w-full p-link flex align-items-center p-2 pl-3 text-color hover:surface-200 border-noround">
-          <img class="avatar" src="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" />
+          <img v-if="signedInUser.settings?.profileImgUrl" class="avatar" :src="signedInUser.settings?.profileImgUrl" />
+          <Avatar class="profile-image" v-else icon="pi pi-user" shape="circle" />
           <i class="pi pi-caret-down" style="color: slateblue"></i>
           <Listbox v-if="showMenuItems" v-model="selectedMenu" optionLabel="name" :options="menuItems" class="listbox w-full" />
         </button>
@@ -16,12 +17,14 @@
 </template>
 
 <script>
+import Avatar from 'primevue/avatar';
 import Menubar from 'primevue/menubar';
 import Listbox from 'primevue/listbox';
 
 export default {
   name: 'NavBar',
   components: {
+    Avatar,
     Menubar,
     Listbox
   },
@@ -45,12 +48,19 @@ export default {
       if(newVal && newVal !== oldVal) {
         switch (newVal.action) {
           case "profile":
-            console.log("go to profile");
+            this.selectedMenu = null;
+            this.$router.push({
+              name: 'ProfilePage'
+            });
             return;
           case "settings":
-            console.log("go to settings");
+            this.selectedMenu = null;
+            this.$router.push({
+              name: 'SettingsPage'
+            });
             return;
           case "logout":
+            this.selectedMenu = null;
             this.$emit('logout')
             return;
           default:
@@ -58,7 +68,10 @@ export default {
             break;
         }
       }
-    }
+    },
+    // signedInUser(newVal) {
+    //   console.log("signed in user in nav: " + newVal)
+    // }
   },
   methods: {
     toggleShowMenuItems() {
@@ -88,6 +101,7 @@ export default {
 }
 
 .avatar {
+  border-radius: 50%;
   height: 30px;
   width: 30px;
 }
